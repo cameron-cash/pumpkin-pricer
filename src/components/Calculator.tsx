@@ -19,13 +19,18 @@ export default function Calculator() {
     const [measurement, setMeasurement] = useState("metric");
 
     useEffect(() => {
+        if (cost === 0 || circumference === 0 || height === 0) {
+            return;
+        }
+
         let weight = 2.971766854 + (circumference * -0.017162338) + (height * -0.475716357) + (circumference * height * 0.008500845);
+
         if (measurement === "imperial") {
-            // Convert weight to pounds
+            // Convert kg to lbs
             weight = weight * 2.20462;
         }
 
-        let newPrice = weight / cost;
+        let newPrice = weight * cost;
         setPrice(parseFloat(newPrice.toFixed(2)));
     }, [cost, circumference, height, measurement]);
 
@@ -41,6 +46,10 @@ export default function Calculator() {
             case Measurements.Height:
                 setHeight(parseFloat(e.target.value));
                 break;
+        }
+
+        if (parseFloat(e.target.value) < 0 || parseFloat(e.target.value) === 0) {
+            setPrice(0);
         }
     }
 
@@ -77,7 +86,7 @@ export default function Calculator() {
             {price > 0 ? (
                 <div className="flex flex-col items-center bg-green-400 rounded-lg p-2 text-white">
                     <p className="text-lg font-bold">Estimated Price</p>
-                    <p className="text-lg font-bold  text-center w-full">${price}</p>
+                    <p className="text-lg font-bold  text-center w-full">${price.toFixed(2)}</p>
                 </div>
             ) : null}
         </div>
