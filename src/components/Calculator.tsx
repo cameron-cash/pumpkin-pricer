@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
-import { Image } from 'astro:assets';
-import pumpkinSvg from '@/assets/lagom-pumpkin-and-candy.svg';
 
 enum Measurements {
     Cost = "cost",
